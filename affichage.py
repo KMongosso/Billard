@@ -8,10 +8,12 @@
 #
 # Fichier : affichage.py
 # Date : 2 décembre 12
-# Auteurs : Eynard Julien
+# Auteurs : Eynard Julien/Karl Mongosso
 # 
-# Contient le squelette du code pour la gestion
+# Eynard Julien : squelette du code pour la gestion
 # et l'affichage du billard
+#
+# Karl Mongosso : implémentation des fonctions du jeu
 #
 #===========================================
 
@@ -54,6 +56,20 @@ def gestion_collisions(listeBoules):
 		for j in range(i,len(listeBoules)):
 			if i!=j:
 				listeBoules[i].collision(listeBoules[j])
+
+
+def gestion_gagne(listeBoules):
+	""" gestion des collisions de boules contenues dans la liste passée en paramètre, en utilisant la méthode collision de la classe Boule
+	Paramètre :
+		- listeBoules : liste des boules auxquelles on applique les méthodes de collision
+	"""
+	#attention, comme la méthode collision modifie la boule sur laquelle on appelle la méthode et la boule passée en paramètre, on n'appliquera pas plus d'une fois cette méthode sur les deux mêmes boules : ie si B1.collision(B2), alors on ne fera pas B2.collision(B1)
+	temp = [boule for boule in listeBoules if ((boule.x>50 or boule.y>50) and (boule.x>50 or boule.y<730) and (boule.x<430 or boule.y>50) and (boule.x<430 or boule.y<730))]
+
+	
+				
+	return temp
+				
 
 
 ############# Création du billard, affichage graphique #############
@@ -106,6 +122,11 @@ while onContinue:
 				# le nouveau vecteur vitesse de la boule blanche est le vecteur allant du centre de la boule à la position de la souris
 				BB.vx = (posM[0]-BB.x)/2
 				BB.vy = (posM[1]-BB.y)/2
+
+				if(BB.vx>70):
+					BB.vx=70
+				if(BB.vy>70):
+					BB.vy=70
 			# clic droit pour redémarrer le jeu
 			if event.button == 3:
 				listeBoules = position_initiale()
@@ -119,10 +140,14 @@ while onContinue:
 		listeBoules[i].rebond()
 	
 	gestion_collisions(listeBoules)
+
+	listeBoules = gestion_gagne(listeBoules)
 	
 	for i in range(0,len(listeBoules)):
 		listeBoules[i].calculeVitesse()
 		listeBoules[i].affiche(ecran)
+
+
 
 	#boule1.affiche(ecran)
 	#boule.deplace()

@@ -8,10 +8,12 @@
 #
 # Fichier : classe.py
 # Date : 2 décembre 12
-# Auteurs : Eynard Julien
+# Auteurs : Eynard Julien/Karl Mongosso
 # 
-# Contient le squelette de la classe Boule
-# qui modélise les boules de billard
+# Eynard Julien : squelette du code pour la gestion
+# et l'affichage du billard
+#
+# Karl Mongosso : implémentation des fonctions du jeu
 #
 #===========================================
 
@@ -25,8 +27,8 @@ from math import sqrt
 
 RAYON = 17	# rayon des boules, en pixel
 DELTA_T = 0.35	# intervalle de temps entre deux rafraîchissement de la position
-ACC = 1.70		# accélération subie par les boules en mouvement
-EPSILON = 0.25	# constante en dessous de laquelle la vitesse devient nulle
+ACC = 7		# accélération subie par les boules en mouvement
+EPSILON = 10	# constante en dessous de laquelle la vitesse devient nulle
 
 # taille de la fenêtre d'affichage pour pyGame
 LARGEUR = 500
@@ -163,6 +165,11 @@ class Boule:
 			self.vy = n[1]*v1[0]+g[1]*v1[1]
 			b.vx = n[0]*v2[0]+g[0]*v2[1]
 			b.vy = n[1]*v2[0]+g[1]*v2[1]
+
+			if(self.vx>100):
+					self.vx=100
+			if(self.vy>100):
+				self.vy=100
 
 
 	def calculeVitesse(self):
