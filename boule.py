@@ -66,7 +66,16 @@ class Boule:
 
 		# l'image de la boule
 		self.image = pygame.image.load(nomFichierImage)		# ...			(chargement de l'image , transparence du fond, redimensionnement)
-		self.image = pygame.transform.scale(self.image,(RAYON*2,RAYON*2))	
+		self.image = pygame.transform.scale(self.image,(RAYON*2,RAYON*2))
+
+		if nomFichierImage=='boule_blanche.png':
+			self.couleur='blanc'
+
+		elif nomFichierImage=='boule_rouge.png':
+			self.couleur='rouge'	
+
+		else:
+			self.couleur='jaune'
 
 
 
